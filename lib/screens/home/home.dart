@@ -15,7 +15,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Weme Wellbeing'),
+        leading:  const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundImage: AssetImage('assets/images/orient_logo.png'),
+          ),
+        ),
       ),
       body: Center(
         child: ElevatedButton(child: Text('Take the survey'), onPressed: (){Navigator.pushNamed(context, IntroPage.routeName);},),

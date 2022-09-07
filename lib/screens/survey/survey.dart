@@ -1,7 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/survey/intro.dart';
+import 'package:flutter_app/screens/survey/finish.dart';
 import 'package:flutter_app/widgets/index.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -19,14 +17,14 @@ class SurveyPage extends StatefulWidget {
   State<SurveyPage> createState() => _SurveyPageState();
 }
 
-enum SingingCharacter { True, False }
+enum SelectionOptions { True, False }
 
 class _SurveyPageState extends State<SurveyPage> {
   final List<Question> _questions = [];
   int _currentQuestion = 0;
   String? radioButtonValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  SingingCharacter? _character = SingingCharacter.True;
+  SelectionOptions? _character =SelectionOptions.True;
 
   Future<void> getQuestion() async {
     final url = Uri.parse(
@@ -71,7 +69,7 @@ class _SurveyPageState extends State<SurveyPage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 SurveyHeaderWidget(
-                  quizNumber: _currentQuestion,
+                  quizNumber: _currentQuestion + 1,
                   totalQuiz: _questions.length,
                 ),
                 Expanded(
@@ -79,11 +77,14 @@ class _SurveyPageState extends State<SurveyPage> {
                   child: Center(
                     widthFactor: double.infinity,
                     heightFactor: double.infinity,
-                    child: Text(
-                      _questions.isEmpty ? 'No data' : currentQuestion.title,
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
-                      textAlign: TextAlign.center,
+                    child:_questions.isEmpty ? CircularProgressIndicator(): Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                         currentQuestion.title,
+                        style:
+                            TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
@@ -92,10 +93,10 @@ class _SurveyPageState extends State<SurveyPage> {
                     children: <Widget>[
                       ListTile(
                         title: const Text('True'),
-                        leading: Radio<SingingCharacter>(
-                          value: SingingCharacter.True,
+                        leading: Radio<SelectionOptions>(
+                          value: SelectionOptions.True,
                           groupValue: _character,
-                          onChanged: (SingingCharacter? value) {
+                          onChanged: (SelectionOptions? value) {
                             setState(() {
                               _character = value;
                             });
@@ -104,10 +105,10 @@ class _SurveyPageState extends State<SurveyPage> {
                       ),
                       ListTile(
                         title: const Text('False'),
-                        leading: Radio<SingingCharacter>(
-                          value: SingingCharacter.False,
+                        leading: Radio<SelectionOptions>(
+                          value: SelectionOptions.False,
                           groupValue: _character,
-                          onChanged: (SingingCharacter? value) {
+                          onChanged: (SelectionOptions? value) {
                             setState(() {
                               _character = value;
                             });
@@ -152,7 +153,7 @@ class _SurveyPageState extends State<SurveyPage> {
                                   type: PageTransitionType.rightToLeft,
                                   duration: Duration(milliseconds: 500),
                                   reverseDuration: Duration(milliseconds: 500),
-                                  child: IntroPage(),
+                                  child: EndSurveyPage(),
                                 ),
                               );
                             }

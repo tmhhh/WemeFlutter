@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/auth/login.dart';
 import 'package:flutter_app/screens/home/home.dart';
+import 'package:flutter_app/screens/survey/finish.dart';
 import 'package:flutter_app/screens/survey/intro.dart';
 import 'package:flutter_app/screens/survey/survey.dart';
 
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         HomePage.routeName:(ctx)=> HomePage(),
         LoginPage.routeName: (ctx) => LoginPage(),
       IntroPage.routeName:(ctx)=> IntroPage(),
-      SurveyPage.routeName:(ctx)=> SurveyPage(),},
+      SurveyPage.routeName:(ctx)=> SurveyPage(),
+      EndSurveyPage.routeName:(ctx)=> EndSurveyPage()},
     );
   }
 }
